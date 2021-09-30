@@ -69,6 +69,7 @@ app.post('/login', (req, res, next) => {
             if (!user) {
                 const error = new Error('A user with this email could not be found.');
                 error.statusCode = 401;
+                res.status(401).json({email: null });
                 console.log(error);
             }
             loadedUser = user;
