@@ -4,6 +4,7 @@ import Cors from "cors"
 import Product from "./products.js"
 import User from "./users.js"
 import Bycrypt from "bcryptjs"
+import { Timestamp } from "mongodb"
 
 
 //App config
@@ -96,6 +97,10 @@ app.post('/login', (req, res, next) => {
 app.post('/signup', (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
+    const first_name=req.body.first_name;
+    const last_name=req.body.last_name;
+    const postal_code=req.body.postal_code;
+    const gender=req.body.gender;
     console.log(password);
     console.log(email);
     Bycrypt
@@ -104,6 +109,10 @@ app.post('/signup', (req, res, next) => {
             const user = new User({
                 email: email,
                 password: hashedPw,
+                first_name: first_name,
+                last_name: last_name,
+                postal_code: postal_code,
+                gender: gender
             });
             return user.save();
         })
