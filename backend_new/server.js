@@ -3,10 +3,14 @@ import mongoose from "mongoose"
 import Cors from "cors"
 import Product from "./products.js"
 import User from "./users.js"
+import Bycrypt from "bcryptjs"
+
 
 //App config
 const app = express();
 const port = process.env.PORT || 8001
+//const authController = require('./controller/auth');
+//const bcrypt = require('bcryptjs');
 
 const connection_url ="mongodb+srv://admin:1234@cluster0.srur7.mongodb.net/shopping?retryWrites=true&w=majority"
 
@@ -53,6 +57,68 @@ app.post('/users', (req, res)=> {
         }
     })
 })
+
+app.post('/login', (req, res, next) => {
+    const email = req.body.email;
+    const password = req.body.password;
+    let loadedUser;
+    User.findOne({ email: email })
+        .then(user => {
+            if (!user) {
+                const error = new Error('A user with this email could not be found.');
+                error.statusCode = 401;
+                console.log(error);
+            }
+            loadedUser = user;
+            return Bycrypt.compare(password, user.password);
+        })
+        .then(isEqual => {
+            if (!isEqual) {
+                const error = new Error('Wrong password!');
+                error.statusCode = 401;
+                console.log(error);
+                res.status(200).json({ verified: false, userId: null });
+            }
+            else {
+                res.status(200).json({ verified: true, email: loadedUser._id.toString() });
+            }
+
+        })
+        .catch(err => {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            console.log(err);
+        });
+})
+
+
+app.post('/signup', (req, res, next) => {
+    const email = req.body.email;
+    const password = req.body.password;
+    console.log(password);
+    console.log(email);
+    Bycrypt
+        .hash(password, 12)
+        .then(hashedPw => {
+            const user = new User({
+                email: email,
+                password: hashedPw,
+            });
+            return user.save();
+        })
+        .then(result => {
+            res.status(201).json({ message: 'User created!', userId: result._id });
+        })
+        .catch(err => {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            console.log(err);
+        });
+})
+
+
 
 app.get('/users', (req, res)=> {
     User.find((err, data)=> {
