@@ -28,8 +28,8 @@ const MeetUpItem = ({ id, name,  description, category ,image, countInStock, bra
           <img src={image} alt={name} />
         </div>
         <div className={classes.content}>
-          <h3>{category}</h3>
-          <address>{category}</address>
+          <h3>{name}</h3>
+          {/* <address>{category}</address> */}
           {/* <p>{description}</p> */}
         </div>
         <div className={classes.actions}>
