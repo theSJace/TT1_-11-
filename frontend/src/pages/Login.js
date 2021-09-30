@@ -1,22 +1,30 @@
-import { useHistory } from "react-router";
+import { Redirect } from "react-router-dom";
 import LoginForm from "../meetups/LoginForm";
-const axios = require('axios');
+const axios = require("axios");
 
 const LoginPage = () => {
-    // const history = useHistory()
-    const loginHandler = (loginData) => {
-      axios.post(loginData)
+  const loginHandler = (loginData) => {
+    console.log(loginData);
+    axios
+      .post("http://localhost:8001/login", loginData)
       .then(function (response) {
         console.log(response);
+        console.log(response.data.verified);
+        if (response.data.verified) {
+          console.log("LOGED IN");
+          window.location.replace("/dashboard");
+        } else {
+          console.log("wrong password");
+        }
       })
       .catch(function (error) {
         console.log(error);
       });
-        console.log(loginData);
-    }
+  };
+
   return (
     <section>
-      <h1>Login/Signup</h1>
+      <h1>Login</h1>
       <LoginForm onLogin={loginHandler}/>
     </section>
   );

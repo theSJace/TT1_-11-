@@ -12,7 +12,7 @@ const LoginForm = (props) => {
     const enteredPassword = passwordInputRef.current.value;
 
     const loginData = {
-      userID: enteredUserID,
+      email: enteredUserID,
       password: enteredPassword,
     };
     props.onLogin(loginData);
@@ -33,9 +33,10 @@ const LoginForm = (props) => {
             ref={passwordInputRef}
           />
         </div>
-
+ 
         <div className={classes.actions}>
           <button>Log In</button>
+          <button href="/signup">Sign Up</button>
         </div>
       </form>
     </Card>
