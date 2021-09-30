@@ -4,6 +4,7 @@ import Cors from "cors"
 import Product from "./products.js"
 import User from "./users.js"
 import Bycrypt from "bcryptjs"
+import Order from "./orders.js"
 import { Timestamp } from "mongodb"
 
 
@@ -132,6 +133,31 @@ app.post('/signup', (req, res, next) => {
 
 app.get('/users', (req, res)=> {
     User.find((err, data)=> {
+        if(err){
+            res.status(500).send(err)
+        } else{
+            res.status(200).send(data)
+        }
+    })
+})
+
+
+//
+
+app.post('/orders', (req, res)=> {
+    const dbOrder = {...req.body, user: req.body.user._id};
+    Order.create(dbOrder, (err, data)=> {
+        if(err){
+            res.status(500).send(err)
+        } else{
+            res.status(201).send(data)
+        }
+    })
+})
+
+app.get('/orders', (req, res)=> {
+    Order.find({user: req.body.user},(err, data)=> {
+        console.log(req)
         if(err){
             res.status(500).send(err)
         } else{
