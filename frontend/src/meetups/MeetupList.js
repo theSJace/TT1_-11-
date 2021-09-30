@@ -8,12 +8,18 @@ const MeetupList = ({ meetups }) => {
     <ul className={classes.list}>
       {meetups.map((meetup) => (
         <MeetupItem
-          key={meetup.id}
           id = {meetup.id}
-          image={meetup.image}
-          title={meetup.title}
-          addresss={meetup.addresss}
-          description={meetup.description}
+          name = {meetup.name}
+          description = {meetup.description}
+          category = {meetup.category}
+          image={meetup.image} 
+          price = {meetup.price}
+          countInStock = {meetup.countInStock}
+          brand = {meetup.brand}
+          rating = {meetup.rating}
+          numReviews = {meetup.numReviews}
+          __v = {meetup.__v}
+         
         />
       ))}
     </ul>
