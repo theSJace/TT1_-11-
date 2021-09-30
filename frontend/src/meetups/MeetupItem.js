@@ -4,7 +4,7 @@ import Card from "../components/ui/Card";
 import { useContext } from "react";
 import FavoritesContext from "../store/favorites-context";
 
-const MeetUpItem = ({ id, name,  description, category ,image, countInStock, brand,
+const MeetUpItem = ({ id, name,  description, category ,price, image, countInStock, brand,
   rating, numReviews, __v}) => {
   const favoritesCtx = useContext(FavoritesContext);
   const itemIsFavorite = favoritesCtx.itemIsFavorite(id);
@@ -29,8 +29,7 @@ const MeetUpItem = ({ id, name,  description, category ,image, countInStock, bra
         </div>
         <div className={classes.content}>
           <h3>{name}</h3>
-          {/* <address>{category}</address> */}
-          {/* <p>{description}</p> */}
+          <p><b>${price}</b></p>
         </div>
         <div className={classes.actions}>
           <button onClick={toggleFavoriteStatusHandler}>{itemIsFavorite ? 'Remove from Favorites' : 'To favorites'}</button>

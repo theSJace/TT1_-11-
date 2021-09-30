@@ -3,7 +3,10 @@
   }
   
   .image {
-    width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
     height: 20rem;
     overflow: hidden;
     border-top-right-radius: 6px;
@@ -11,6 +14,7 @@
   }
   
   .image img {
+    margin-top: 20px;
     width: 100%;
     object-fit: cover;
   }
@@ -44,3 +48,8 @@
   .actions button:active {
     background-color: #ffe2ed;
   }
+
+p {
+  font-family: verdana;
+  font-size: 30px;
+}

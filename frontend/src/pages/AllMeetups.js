@@ -3,28 +3,6 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 
 
-
-// const productsHandler = (productData) => {
-//   axios.get('localhost:8001/products')
-//   .then(function (response) {
-//   console.log(response);
-// })
-//   .catch(function (error) {
-//   console.log(error);
-// });
-// console.log(productData);
-
-// productsHanddler()
-
-
-// //Fetch Tasks
-// const fetchTasks = async() => {
-//   //fetch returns a promise so want await that promise
-//   const res = await fetch('http://localhost:5000/tasks')
-//   const data = await res.json()
-//   return data
-// }
-
 const AllMeetupsPage = () => {
   const [products, setProducts] = useState([])
 
@@ -40,8 +18,7 @@ const AllMeetupsPage = () => {
 
   return (
     <section>
-      <h1>Products:</h1>
-      {/* <MeetupList onLogin={response}/> */}
+      <h1 >Products:</h1>
       <MeetupList meetups={products}/>
     </section>
   );
